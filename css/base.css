@@ -2,6 +2,8 @@
 :root {
   --red: #ff5722;
   --cyan: #1bcdfc;
+  --yellow: #FFBD2B;
+  --green: #3DC550;
   --t1: #000;
   --t2: #444;
   --bg: #fff;
@@ -46,7 +48,16 @@ body {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap-reverse;
+}
 
+.toolbar .title {
+  color: var(--t2);
+  opacity: 0.5;
+  padding: 4px 12px;
+}
+
+.toolbar .title:hover {
+  opacity: 1;
 }
 
 .toolbar .menu {
@@ -62,9 +73,12 @@ body {
   color: var(--t2);
   text-decoration: none;
   text-align: center;
+}
+a.tip {
   font-weight: 500;
 }
-.toolbar a:hover {
+
+.toolbar a.tip:hover {
   background: var(--bg-hover);
   color: var(--t1);
 }
@@ -72,20 +86,9 @@ body {
 .line-v {
   width: 2px;
   background: var(--t2);
-  opacity: 0.25;
+  opacity: 0.15;
   margin: 7px 0;
   border-radius: 2px;
-}
-
-a.clear:hover {
-  color: var(--red);
-}
-
-.toolbar .title {
-  color: var(--t2);
-  opacity: 50%;
-  font-size: 80%;
-  padding: 4px 12px;
 }
 
 
@@ -95,12 +98,17 @@ a.clear:hover {
     backdrop-filter: saturate(200%) blur(var(--blur-px));
     -webkit-backdrop-filter: saturate(200%) blur(var(--blur-px));
   }
-  .toolbar a:hover {
+  .toolbar a.tip:hover {
     background: var(--bg-blur-hover);
   }
 }
 
-.toolbar a.select {
+.toolbar a.clear:hover {
+  color: white;
+  background: var(--red);
+}
+
+.toolbar a.tip.select {
   background: var(--cyan);
   color: white;
 }
@@ -135,8 +143,7 @@ textarea#xml {
   display: inline-block;
   text-align: center;
   width: 24px;
-  color: var(--red);
-  border: 2px solid var(--red);
+  color: white;
   border-radius: 24px;
   margin: 2px;
   font-style: normal;
@@ -144,8 +151,10 @@ textarea#xml {
 }
 .fa-minus-square-o:before {
   content: '-';
+  background: var(--yellow);
 }
 
 .fa-plus-square-o:before {
   content: '+';
+  background: var(--green);
 }
