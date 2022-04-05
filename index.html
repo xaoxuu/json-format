@@ -8,9 +8,6 @@
   <meta http-equiv="Cache-Control" content="max-age=7200" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/font-awesome.min.css" rel="stylesheet">
-
   <link href="css/base.css" rel="stylesheet">
 </head>
 <body>
@@ -19,12 +16,15 @@
     <textarea id="json-src" placeholder="在此输入Json字符串或XML字符串..." class="form-controls"></textarea>
   </div>
   <div class="toolbar">
-    <a href="#" class="tip clear" data-placement="bottom">清空</a>
-    <div class="line-v"></div>
-    <a href="#" class="tip compress" data-placement="bottom">压缩</a>
-    <a href="#" class="tip xml" data-placement="bottom">转XML</a>
-    <a href="#" class="tip copy" data-clipboard-target="#json-target" data-placement="bottom">复制</a>
-    <a href="#" class="tip save" data-placement="bottom">下载</a>
+    <div class="menu">
+      <a href="#" class="tip clear" data-placement="bottom">清空</a>
+      <div class="line-v"></div>
+      <a href="#" class="tip compress" data-placement="bottom">压缩</a>
+      <a href="#" class="tip xml" data-placement="bottom">转XML</a>
+      <a href="#" class="tip copy" data-clipboard-target="#json-target" data-placement="bottom">复制</a>
+      <a href="#" class="tip save" data-placement="bottom">下载</a>
+    </div>
+    <span class="title">Json在线解析及格式化验证</span>
   </div>
   <div class="output">
     <div id="json-target"></div>
@@ -41,7 +41,6 @@
 <script src="js/jsonlint.js"></script>
 <script src="js/clipboard.min.js"></script>
 <script src="js/FileSaver.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
 

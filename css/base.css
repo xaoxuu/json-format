@@ -1,4 +1,26 @@
 @charset "UTF-8";
+:root {
+  --red: #ff5722;
+  --cyan: #1bcdfc;
+  --t1: #000;
+  --t2: #444;
+  --bg: #fff;
+  --bg-hover: #f2f2f2;
+  --blur-px: 20px;
+  --bg-blur: rgba(242, 242, 242, 0.7);
+  --bg-blur-hover: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --t1: #fff;
+    --t2: #ccc;
+    --bg: #313438;
+    --bg-hover: #20242F;
+    --bg-blur: rgba(80, 80, 80, 0.5);
+    --bg-blur-hover: #20242F;
+  }
+}
+
 html {
   height: 100%;
 }
@@ -6,6 +28,8 @@ body {
   font-family: Menlo,Monaco,Consolas,system-ui,"Courier New",monospace,sans-serif;
   font-size: 12px;
   height: 100%;
+  background: var(--bg);
+  margin: 0;
 }
 .main {
   padding: 0 8px;
@@ -14,41 +38,71 @@ body {
   padding: 4px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
+  position: sticky;
+  top: 8px;
+  user-select: none;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+
+}
+
+.toolbar .menu {
   display: grid;
   grid-gap: 4px;
   grid-auto-flow: column;
   align-content: start;
   justify-content: start;
-  position: sticky;
-  top: 8px;
-  background: white;
-  user-select: none;
 }
 .toolbar a {
   padding: 4px 12px;
   border-radius: 6px;
-  color: #444;
+  color: var(--t2);
   text-decoration: none;
   text-align: center;
+  font-weight: 500;
 }
 .toolbar a:hover {
-  background: #f2f2f2;
-}
-
-.toolbar a.select {
-  background: #2196f3;
-  color: white;
+  background: var(--bg-hover);
+  color: var(--t1);
 }
 
 .line-v {
   width: 2px;
-  background: #f2f2f2;
-  margin: 6px 0;
+  background: var(--t2);
+  opacity: 0.25;
+  margin: 7px 0;
   border-radius: 2px;
 }
 
 a.clear:hover {
-  color: red;
+  color: var(--red);
+}
+
+.toolbar .title {
+  color: var(--t2);
+  opacity: 50%;
+  font-size: 80%;
+  padding: 4px 12px;
+}
+
+
+@supports ((-webkit-backdrop-filter:blur(var(--blur-px))) or (backdrop-filter:blur(var(--blur-px)))) {
+  .toolbar {
+    background: var(--bg-blur);
+    backdrop-filter: saturate(200%) blur(var(--blur-px));
+    -webkit-backdrop-filter: saturate(200%) blur(var(--blur-px));
+  }
+  .toolbar a:hover {
+    background: var(--bg-blur-hover);
+  }
+}
+
+.toolbar a.select {
+  background: var(--cyan);
+  color: white;
 }
 
 .output {
@@ -62,6 +116,8 @@ textarea {
   border: 0;
   background: none;
   outline: none;
+  color: var(--t2);
+  font-family: inherit;
 }
 textarea#json-src {
   min-height: 120px;
@@ -73,4 +129,23 @@ textarea#xml {
 
 #json-target {
   white-space: pre-line;
+}
+
+.fa-minus-square-o:before, .fa-plus-square-o:before {
+  display: inline-block;
+  text-align: center;
+  width: 24px;
+  color: var(--red);
+  border: 2px solid var(--red);
+  border-radius: 24px;
+  margin: 2px;
+  font-style: normal;
+  font-weight: 700;
+}
+.fa-minus-square-o:before {
+  content: '-';
+}
+
+.fa-plus-square-o:before {
+  content: '+';
 }
