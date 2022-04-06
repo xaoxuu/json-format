@@ -21,12 +21,12 @@
       <div class="line-v"></div>
       <a href="#" class="tip compress" data-placement="bottom">压缩</a>
       <a href="#" class="tip xml" data-placement="bottom">转XML</a>
-      <a href="#" class="tip copy" data-clipboard-target="#json-target" data-placement="bottom">复制</a>
+      <a href="#" class="tip copy" data-clipboard-target="#output-div" data-placement="bottom">复制</a>
       <a href="#" class="tip save" data-placement="bottom">下载</a>
     </div>
     <a target="_blank" class="title" href="https://json.xaoxuu.com">Json在线解析工具</a>
   </div>
-  <div class="output" id="json-target">
+  <div class="output" id="output-div">
   </div>
   <form id="form-save" method="POST"><input type="hidden" value="" id="txt-content" name="content"></form>
 </div>
@@ -45,14 +45,14 @@
 
 var current_json = '';
 var current_json_str = '';
-var xml_flag = false;
 var compress_flag = false;
+var xml_flag = false;
 
 function init(){
-    xml_flag = false;
     compress_flag = false;
-    $('.xml')[0].classList.remove("select");
+    xml_flag = false;
     $('.compress')[0].classList.remove("select");
+    $('.xml')[0].classList.remove("select");
     renderLine();
 }
 
@@ -69,7 +69,7 @@ $('#json-src').keyup(function(){
             }catch(e){
                 result = '解析错误：<span style="color: #f1592a;font-weight:bold;">' + e.message + '</span>';
                 current_json_str = result;
-                $('#json-target').html(result);
+                $('#output-div').html(result);
                 return false;
             }
         }
@@ -82,9 +82,24 @@ $('#json-src').keyup(function(){
             current_json_str = result;
         }
 
-        $('#json-target').html(result);
+        $('#output-div').html(result);
     }else{
-        $('#json-target').html('');
+        $('#output-div').html('');
+    }
+});
+
+$('.compress').click(function(){
+    if (compress_flag) {
+        $('#json-src').keyup();
+        this.classList.remove("select");
+        $('a .copy')[0].attr('data-clipboard-target', '#output-div');
+    }else{
+        $('#output-div').html('<textarea id="output-json">'+current_json_str+'</textarea>');
+        compress_flag = true;
+        this.classList.add("select");
+        xml_flag = false;
+        $('.xml')[0].classList.remove("select");
+        $('a .copy')[0].attr('data-clipboard-target', '#output-json');
     }
 });
 
@@ -92,18 +107,20 @@ $('.xml').click(function(){
     if (xml_flag) {
         $('#json-src').keyup();
         this.classList.remove("select");
+        $('a .copy')[0].attr('data-clipboard-target', '#output-div');
     }else{
         var result = $.json2xml(current_json);
-        $('#json-target').html('<textarea id="xml">'+result+'</textarea>');
+        $('#output-div').html('<textarea id="output-xml">'+result+'</textarea>');
         xml_flag = true;
         this.classList.add("select");
         compress_flag = false;
         $('.compress')[0].classList.remove("select");
+        $('a .copy')[0].attr('data-clipboard-target', '#output-xml');
     }
 });
 
 function renderLine(){
-    var line_num = $('#json-target').height()/20;
+    var line_num = $('#output-div').height()/20;
     $('#line-num').html("");
     var line_num_html = "";
     for (var i = 1; i < line_num+1; i++) {
@@ -112,22 +129,10 @@ function renderLine(){
     $('#line-num').html(line_num_html);
 }
 
-$('.compress').click(function(){
-    if (compress_flag) {
-        $('#json-src').keyup();
-        this.classList.remove("select");
-    }else{
-        $('#json-target').html('<textarea id="xml">'+current_json_str+'</textarea>');
-        compress_flag = true;
-        this.classList.add("select");
-        xml_flag = false;
-        $('.xml')[0].classList.remove("select");
-    }
-});
-
 $('.clear').click(function(){
      $('#json-src').val('');
-     $('#json-target').html('');
+     $('#output-div').html('');
+     init();
 });
 
 (function($){
@@ -154,11 +159,21 @@ $('.clear').click(function(){
 })(jQuery);
 
 $('.save').click(function(){
-    var html = $('#json-target').html().replace(/\n/g,'<br/>').replace(/\n/g,'<br>');
-    var text = $('#json-target').innerText().replace('　　', '    ');
-    var blob = new Blob([text], {type: "application/json;charset=utf-8"});
-    var timestamp=new Date().getTime();
-    saveAs(blob, "format."+timestamp+".json");
+    var html = $('#output-div').html().replace(/\n/g,'<br/>').replace(/\n/g,'<br>');
+    var text = $('#output-div').innerText().replace('　　', '    ');
+    if (text == undefined || text.length == 0) {
+      text = $('#output-div textarea#json').val();
+    }
+    if (text && text.length > 0) {
+      var blob = new Blob([text], {type: "application/json;charset=utf-8"});
+      var timestamp = new Date().getTime();
+      saveAs(blob, "format."+timestamp+".json");
+    } else {
+      text = $('#output-div textarea#xml').val();
+      var blob = new Blob([text], {type: "application/xml;charset=utf-8"});
+      var timestamp = new Date().getTime();
+      saveAs(blob, "format."+timestamp+".xml");
+    }
 });
 
 var clipboard = new Clipboard('.copy');
