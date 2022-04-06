@@ -2,8 +2,12 @@
 :root {
   --red: #ff5722;
   --cyan: #1bcdfc;
-  --yellow: #FFBD2B;
-  --green: #3DC550;
+  --yellow: #FFBD2E;
+  --yellow-border: #E19D1C;
+  --yellow-text: #985500;
+  --green: #27C840;
+  --green-border: #1FA926;
+  --green-text: #006100;
   --t1: #000;
   --t2: #444;
   --bg: #fff;
@@ -33,10 +37,13 @@ body {
   background: var(--bg);
   margin: 0;
 }
-.main {
-  padding: 0 8px;
+
+.input {
+  margin: 0 8px;
 }
+
 .toolbar {
+  margin: 0 8px;
   padding: 4px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
@@ -113,48 +120,53 @@ a.tip {
   color: white;
 }
 
-.output {
-  padding: 8px 0;
-}
 textarea {
   display: block;
   resize: vertical;
   font-size: inherit;
   width: 100%;
+  box-sizing: border-box;
   border: 0;
   background: none;
   outline: none;
   color: var(--t2);
   font-family: inherit;
 }
-textarea#json-src {
+.input textarea {
   min-height: 120px;
   padding: 8px 0;
 }
-textarea#xml {
+.output textarea {
   min-height: 400px;
+  padding: 8px;
 }
-
-#json-target {
-  white-space: pre-line;
+.output>span {
+  display: block;
+  overflow: scroll;
+  padding: 8px;
 }
 
 .fa-minus-square-o:before, .fa-plus-square-o:before {
   display: inline-block;
   text-align: center;
   width: 24px;
-  color: white;
   border-radius: 24px;
   margin: 2px;
   font-style: normal;
   font-weight: 700;
+  border-width: 1px;
+  border-style: solid;
 }
 .fa-minus-square-o:before {
   content: '-';
   background: var(--yellow);
+  border-color: var(--yellow-border);
+  color: var(--yellow-text);
 }
 
 .fa-plus-square-o:before {
   content: '+';
   background: var(--green);
+  border-color: var(--green-border);
+  color: var(--green-text);
 }
