@@ -15,6 +15,9 @@
   --blur-px: 20px;
   --bg-blur: rgba(242, 242, 242, 0.7);
   --bg-blur-hover: #fff;
+  --json-key: #fd8607;
+  --json-number: #1bcdfc;
+  --json-link: #2196f3;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -74,12 +77,20 @@ body {
   align-content: start;
   justify-content: start;
 }
+
+@media screen and (max-width: 425px) {
+  .toolbar .title {
+    display: none;
+  }
+}
+
 .toolbar a {
   padding: 4px 12px;
   border-radius: 6px;
   color: var(--t2);
   text-decoration: none;
   text-align: center;
+  line-height: 1.5;
 }
 a.tip {
   font-weight: 500;
@@ -137,13 +148,14 @@ textarea {
   padding: 8px 0;
 }
 .output textarea {
-  min-height: 400px;
+  min-height: 420px;
   padding: 8px;
 }
 .output>span {
   display: block;
   overflow: scroll;
   padding: 8px;
+  color: var(--t2);
 }
 
 .fa-minus-square-o:before, .fa-plus-square-o:before {
@@ -169,4 +181,14 @@ textarea {
   background: var(--green);
   border-color: var(--green-border);
   color: var(--green-text);
+}
+
+span.json_key {
+  color: var(--json-key);
+}
+span.json_number {
+  color: var(--json-number);
+}
+a.json_link {
+  color: var(--json-link);
 }
