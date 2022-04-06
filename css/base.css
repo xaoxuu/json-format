@@ -146,6 +146,7 @@ textarea {
 .input textarea {
   min-height: 120px;
   padding: 8px 0;
+  height: 32vh;
 }
 .output textarea {
   min-height: 420px;
